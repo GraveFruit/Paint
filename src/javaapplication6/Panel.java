@@ -17,14 +17,14 @@ import javax.swing.*;
 public class Panel extends JPanel implements MouseListener, MouseMotionListener {
 
     ArrayList<Figura> lista;
-    
-    private int x, y;
+
+    private int x, y, x1, y1;
 
     public Panel() {
         addMouseListener(this);
         addMouseMotionListener(this);
         lista = new ArrayList<Figura>();
-        
+
     }
 
     @Override
@@ -40,6 +40,8 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener 
     @Override
     public void mousePressed(MouseEvent e) {
         System.out.println("wcisnieto przycisk myszy");
+        this.x = e.getX();
+        this.y = e.getY();
 
         //repaint();
     }
@@ -47,8 +49,10 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener 
     @Override
     public void mouseReleased(MouseEvent e) {
         System.out.println("puszczono przycisk myszy");
-
-        //repaint();
+        this.x1 = e.getX();
+        this.y1 = e.getY();
+        lista.add(new Linia(x,y,x1,y1));
+        repaint();
     }
 
     @Override
@@ -56,24 +60,25 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener 
         lista.add(new Kolko(e.getX(), e.getY()));
         repaint();
     }
-    
+
     @Override
-    public void mouseDragged(MouseEvent e){
+    public void mouseDragged(MouseEvent e) {
 
         //repaint();
-    } 
-    
+    }
+
     @Override
-    public void mouseMoved(MouseEvent e){
-        
+    public void mouseMoved(MouseEvent e) {
+
     }
 
     @Override
     public void paint(Graphics g) {
         g.clearRect(0, 0, getSize().width, getSize().height);
-        for (Figura figura:lista)
+        for (Figura figura : lista) {
             figura.paint(g);
-        
+        }
+
     }
 
 }
